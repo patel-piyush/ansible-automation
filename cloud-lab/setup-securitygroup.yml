@@ -1,0 +1,5 @@
+---
+- name: setup openstack security group
+  hosts: jumpbox
+  roles:
+    - name: osp-securitygroup

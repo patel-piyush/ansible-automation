@@ -1,0 +1,5 @@
+---
+- name: setup openstack networking
+  hosts: jumpbox
+  roles:
+    - osp-network

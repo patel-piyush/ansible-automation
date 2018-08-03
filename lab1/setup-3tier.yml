@@ -1,0 +1,32 @@
+---
+- name: setup 3 tier
+  become: true
+  gather_facts: false
+  hosts: all
+  pre_tasks:
+    - name: enable repos
+      template:
+        src: open_three-tier-app.repo
+        dest: /etc/yum.repos.d/open_three-tier-app.repo
+        mode: 0644
+
+- name: setup app tier
+  hosts: apps
+  gather_facts: false # remove later! speeds up testing
+  become: true
+  roles:
+    - name: app-server
+
+- name: setup db tier
+  hosts: appdbs
+  gather_facts: false # remove later! speeds up testing
+  become: true
+  roles:
+    - name: db-server
+
+- name: setup frontend tier
+  hosts: frontends
+  gather_facts: false # remove later! speeds up testing
+  become: true
+  roles:
+    - name: proxy-server

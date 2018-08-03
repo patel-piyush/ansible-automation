@@ -1,0 +1,8 @@
+---
+- name: install and setup ad
+  hosts: windows
+  gather_facts: false
+  vars_files:
+    - my_ad_vars.yml
+  roles:
+    - name: win_ad_install

@@ -1,0 +1,27 @@
+---
+# tasks file for roles/win_ad_install
+
+- name: AD-Domain-Services
+  win_feature:
+    name: AD-Domain-Services
+    state: present
+    include_management_tools: yes
+    include_sub_folders: yes
+
+- name: setup ad controller
+  win_domain:
+    dns_domain_name: "{{ ad_domain_name }}"
+    safe_mode_password: "{{ ad_safe_mode_password }}"
+  register: active_directory_controllers
+
+- name: reboot ad controller once dc is created
+  win_reboot:
+  when: active_directory_controllers.reboot_required
+
+- name: print domain list
+  win_shell: |
+    nltest /dclist:"{{ ad_domain_name }}"
+  register: domain_list
+
+- debug:
+    var: domain_list

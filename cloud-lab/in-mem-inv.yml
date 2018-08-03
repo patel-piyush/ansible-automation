@@ -1,0 +1,12 @@
+---
+- name: setup 3 tier
+  hosts: jumpbox
+  gather_facts: false
+  roles:
+    - name: osp-facts
+
+  tasks:
+  - name: display app servers
+    debug:
+      var: hostvars["{{ item }}"].inventory_hostname
+    with_items: "{{ groups['apps'] }}"

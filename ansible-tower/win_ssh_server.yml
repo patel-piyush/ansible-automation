@@ -1,0 +1,7 @@
+---
+- name: install windows ssh server
+  hosts: windows
+  vars_files:
+    - ssh_var.yml
+  roles:
+    - name: win_service_config

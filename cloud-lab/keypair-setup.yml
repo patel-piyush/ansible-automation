@@ -1,0 +1,5 @@
+---
+- name: setup openstack keypair
+  hosts: jumpbox
+  roles:
+    - name: osp-keypair

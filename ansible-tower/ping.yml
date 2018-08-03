@@ -1,0 +1,9 @@
+---
+- name: Ping test
+  hosts: windows
+  gather_facts: false
+
+  tasks:
+    - name: ping ad1
+      win_ping:
+      #delegate_to: bastion

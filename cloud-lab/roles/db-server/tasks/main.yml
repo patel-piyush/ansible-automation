@@ -1,0 +1,29 @@
+---
+# tasks file for roles/db-server
+
+  - name: install postgres
+    yum:
+      name: postgresql-server
+      state: latest
+
+  - name: enable postgressql at boot
+    service:
+      name: postgresql
+      enabled: yes
+
+  - name: check if data directory exists
+    stat:
+      path: /var/lib/pgsql/data
+    register: data_dir
+
+  - block:
+    - name: initilize postgres
+      command: postgresql-setup initdb
+      notify:
+        - restart_postgres
+
+    - name: initilize postgres some more
+      command: chkconfig postgresql on
+      notify:
+        - restart_postgres
+    when: not data_dir.stat.exists

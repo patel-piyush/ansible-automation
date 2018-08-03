@@ -1,0 +1,7 @@
+---
+- name: create AD users and groups
+  hosts: windows
+  vars_files:
+    - ad_user_vars.yml
+  roles:
+    - name: win_ad_user

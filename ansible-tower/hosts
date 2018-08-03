@@ -1,0 +1,44 @@
+[GenericExample:vars]
+
+###########################################################################
+### Ansible Vars
+###########################################################################
+timeout=60
+ansible_become=yes
+ansible_user=ec2-user
+
+
+[GenericExample:children]
+towers
+windows
+support
+
+[jumpbox]
+bastion
+
+[towers]
+## These are the towers
+tower1.f9d5.internal public_host_name=tower1.f9d5.example.opentlc.com ssh_host=tower2.f9d5.internal
+tower2.f9d5.internal public_host_name=tower2.f9d5.example.opentlc.com ssh_host=tower3.f9d5.internal
+tower3.f9d5.internal public_host_name=tower3.f9d5.example.opentlc.com ssh_host=tower1.f9d5.internal
+
+
+[windows]
+## These are the activedirectory servers
+#ad1.f9d5.internal ssh_host=ad1.f9d5.example.opentlc.com ansible_password=jVMijRwLbI02gFCo2xkjlZ9lxEA7bm7zgg==
+ad1.f9d5.example.opentlc.com ansible_password=jVMijRwLbI02gFCo2xkjlZ9lxEA7bm7zgg==
+
+## These are the supporthosts
+[support]
+support1.f9d5.internal ssh_host=support2.f9d5.internal
+support2.f9d5.internal ssh_host=support1.f9d5.internal
+
+[windows:vars]
+ansible_connection=winrm
+ansible_port=5986
+ansible_ssh_port=5986
+ansible_user=Administrator
+ansible_ssh_user=Administrator
+ansible_winrm_server_cert_validation=ignore
+ansible_winrm_transport=basic
+ansible_become=false

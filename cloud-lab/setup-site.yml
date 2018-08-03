@@ -1,0 +1,35 @@
+---
+- name: setup site
+  hosts: jumpbox
+  tasks:
+
+  - name: Create {{ item }} instance
+    include_role:
+      name: osp-instances
+      vars_from: "{{ item }}.yaml"
+    with_items:
+      - frontend
+      - app1
+      - app2
+      - db
+
+
+#   - name: Create frontend instance
+#     include_role:
+#       name: osp-instances
+#       vars_from: frontend.yaml
+# ###Create App1 server
+#   - name: Create app1 instance
+#     include_role:
+#       name: osp-instances
+#       vars_from: app1.yaml
+# ##Create App2 server
+#   - name: Create app2 instance
+#     include_role:
+#       name: osp-instances
+#       vars_from: app2.yaml
+# ##Create DB server
+#   - name: Create db instance
+#     include_role:
+#       name: osp-instances
+#       vars_from: db.yaml
