@@ -1,7 +1,20 @@
 ---
 - name: setup site
   hosts: jumpbox
+  roles:
+    - name: osp-network
+    - name: osp-keypair
+    - name: osp-securitygroup
   tasks:
+
+  - name: Create m2.small flavor
+    os_nova_flavor:
+     cloud: ospcloud
+     state: present
+     name: m2.small
+     ram: 2048
+     vcpus: 1
+     disk: 10
 
   - name: Create {{ item }} instance
     include_role:
