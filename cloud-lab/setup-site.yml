@@ -26,7 +26,6 @@
       - app2
       - db
 
-
 #   - name: Create frontend instance
 #     include_role:
 #       name: osp-instances
