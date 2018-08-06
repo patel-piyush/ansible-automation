@@ -27,5 +27,4 @@
         mode: 0755
 
     - name: order prod env from AWS
-      script:
-        src: order_prod_env.sh
+      script: order_prod_env.sh
