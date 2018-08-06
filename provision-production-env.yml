@@ -1,0 +1,32 @@
+---
+- name: Provision Production environment for 3-Tier application
+  hosts: localhost
+  tasks:
+    - name: create bin directory
+      file:
+        path: ~/bin
+        type: directory
+        state: present
+        mode: 0755
+
+    - name: download common.sh
+      get_url:
+        url: http://www.opentlc.com/download/ansible_bootcamp/scripts/common.sh
+        dest: ~/bin/common.sh
+        mode: 0755
+
+    - name: download jq
+      get_url:
+        url: http://www.opentlc.com/download/ansible_bootcamp/scripts/jq-linux64
+        dest: ~/bin/jq
+        mode: 0755
+
+    - name: download order_svc.sh
+      get_url:
+        url: http://www.opentlc.com/download/ansible_bootcamp/scripts/order_svc.sh
+        dest: ~/bin/order_svc.sh
+        mode: 0755
+
+    - name: order prod env from AWS
+      script:
+        src: order_prod_env.sh
