@@ -47,3 +47,39 @@
         - frontend
         - db
         - app
+
+    - name: Remove keypair
+      os_keypair:
+        cloud: ospcloud
+        state: absent
+        name: ansible_ssh
+
+    - name: Remove router
+      os_router:
+        name: router1
+        state: absent
+
+    - name: Remove internal subnet
+      os_subnet:
+        cloud: ospcloud
+        state: absent
+        network_name: int_network
+        name: int_subnet
+
+    - name: Remove external subnet
+      os_subnet:
+        cloud: ospcloud
+        state: absent
+        network_name: ext_network
+        name: external_subnet
+
+    - name: Remove networks
+      os_network:
+        cloud: ospcloud
+        state: absent
+        name: "{{ network_name }}"
+      vars:
+        network_name: "{{ item }}"
+      with_items:
+        - ext_network
+        - int_network
