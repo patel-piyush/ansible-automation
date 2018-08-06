@@ -5,8 +5,7 @@
     - name: create bin directory
       file:
         path: ~/bin
-        type: directory
-        state: present
+        state: directory
         mode: 0755
 
     - name: download common.sh
