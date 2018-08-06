@@ -42,7 +42,7 @@
         name: "{{ security_group_name }}"
         state: absent
       vars:
-        security_group_name: "{{ item_servers }}"
+        security_group_name: "{{ item }}_servers"
       with_items:
         - frontend
         - db
