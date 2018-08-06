@@ -1,0 +1,33 @@
+- name: Cleanup OSP environment
+  hosts: jumpbox
+  tasks:
+    - name: Purge floating IP from instance
+      os_floating_ip:
+        cloud: ospcloud
+        state: absent
+        reuse: yes
+        server: "{{ instance_name }}"
+        network: ext_network
+        wait: true
+        timeout: 180
+        purge: true
+      vars:
+        instance_name: "{{ item }}"
+      with_items:
+        - frontend
+        - app2
+        - app1
+        - db
+
+    - name: Remove instances
+      os_server:
+        cloud: ospcloud
+        name: "{{ instance_name }}"
+        state: absent
+        vars:
+          instance_name: "{{ item }}"
+        with_items:
+          - frontend
+          - app2
+          - app1
+          - db
