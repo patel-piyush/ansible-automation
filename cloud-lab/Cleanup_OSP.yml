@@ -17,12 +17,8 @@
           timeout: 180
           purge: true
         vars:
-          instance_name: "{{ item }}"
-        with_items:
-          - frontend
-          - app2
-          - app1
-          - db
+          instance_name: "{{ item.name }}"
+        with_items: openstack_servers
 
       - name: Remove instances
         os_server:
@@ -30,10 +26,24 @@
           name: "{{ instance_name }}"
           state: absent
         vars:
-          instance_name: "{{ item }}"
-        with_items:
-          - frontend
-          - app2
-          - app1
-          - db
+          instance_name: "{{ item.name }}"
+        with_items: openstack_servers
       when: openstack_servers | length > 0
+
+    - name: Remove m2.small flavor
+      os_nova_flavor:
+       cloud: ospcloud
+       state: absent
+       name: m2.small
+
+    - name: Remove all security groups
+      os_security_group:
+        cloud: ospcloud
+        name: "{{ security_group_name }}"
+        state: absent
+      vars:
+        security_group_name: "{{ item_servers }}"
+      with_items:
+        - frontend
+        - db
+        - app
