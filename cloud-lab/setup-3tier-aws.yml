@@ -1,8 +1,27 @@
 ---
+- name: fetch pem file from bastion
+  become: true
+  gather_facts: false
+  hosts: bastion
+  tasks:
+    - name: find pem file location
+      find:
+        path: /root/.ssh/
+        pattern: '*.pem'
+      register: result
+
+    - name: save pem file to local directory
+      fetch:
+        src: "{{ result.files[0].path }}"
+        dest: "~/{{ result.files[0].path | basename }}"
+        flat: true
+
 - name: setup repo
   become: true
   gather_facts: false
   hosts: frontends, apps, appdbs
+  ansible_ssh_private_key_file: "~/{{ result.files[0].path | basename }}"
+  remote_user: ec2-user
   tasks:
     - name: enable repo
       template:
