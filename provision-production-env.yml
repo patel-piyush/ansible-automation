@@ -1,5 +1,6 @@
 ---
 - name: Provision Production environment for 3-Tier application
+  gather_facts: false
   hosts: localhost
   tasks:
     - name: create bin directory
