@@ -1,0 +1,22 @@
+---
+- name: test web page
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: access local webpage 1st time
+      uri:
+        url="http://{{ frontend_ip }}"
+      register: webpage
+      vars:
+        frontend_ip: "{{ groups['frontends'][0].default_ipv4.address }}"
+    - fail:
+        msg: "Failed"
+      when: webpage.status != 200
+
+    - name: access local webpage 2nd time
+      uri:
+        url="http://{{ frontend_ip }}"
+      register: webpage
+      vars:
+        frontend_ip: "{{ groups['frontends'][0].default_ipv4.address }}"
+      when: webpage.status != 200
