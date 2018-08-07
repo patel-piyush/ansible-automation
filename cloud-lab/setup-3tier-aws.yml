@@ -2,7 +2,7 @@
 - name: setup repo
   become: true
   gather_facts: false
-  hosts: all
+  hosts: frontends, apps, appdbs
   tasks:
     - name: enable repo
       template:
