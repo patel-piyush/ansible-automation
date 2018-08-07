@@ -18,11 +18,11 @@
         flat: true
 
     - name: fix permissions of key file
+      become: false
       file:
         path: /tmp/projkey.pem
         mode: 0400
       delegate_to: localhost
-      delegate_facts: true
 
 - name: setup repo
   become: true
