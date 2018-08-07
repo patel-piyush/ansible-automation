@@ -3,6 +3,7 @@
   become: true
   gather_facts: false
   hosts: bastion
+  remote_user: pipatel-redhat.com
   tasks:
     - name: find pem file location
       find:
