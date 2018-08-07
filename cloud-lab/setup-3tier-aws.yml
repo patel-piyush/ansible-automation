@@ -40,6 +40,7 @@
   hosts: apps
   gather_facts: false # remove later! speeds up testing
   become: true
+  remote_user: ec2-user
   roles:
     - name: app-server
 
@@ -47,6 +48,7 @@
   hosts: appdbs
   gather_facts: false # remove later! speeds up testing
   become: true
+  remote_user: ec2-user
   roles:
     - name: db-server
 
@@ -54,5 +56,6 @@
   hosts: frontends
   gather_facts: false # remove later! speeds up testing
   become: true
+  remote_user: ec2-user
   roles:
     - name: proxy-server
