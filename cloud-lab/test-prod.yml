@@ -8,7 +8,7 @@
         url="http://{{ frontend_ip }}"
       register: webpage
       vars:
-        frontend_ip: "{{ groups['frontends'][0].default_ipv4.address }}"
+        frontend_ip: "{{ groups['frontends'][0] }}"
     - fail:
         msg: "Failed"
       when: webpage.status != 200
@@ -18,5 +18,5 @@
         url="http://{{ frontend_ip }}"
       register: webpage
       vars:
-        frontend_ip: "{{ groups['frontends'][0].default_ipv4.address }}"
+        frontend_ip: "{{ groups['frontends'][0] }}"
       when: webpage.status != 200
