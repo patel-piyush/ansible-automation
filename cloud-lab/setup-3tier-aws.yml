@@ -14,7 +14,7 @@
     - name: save pem file to local directory
       fetch:
         src: "{{ result.files[0].path }}"
-        dest: "./projkey.pem"
+        dest: "/tmp/projkey.pem"
         flat: true
 
 - name: setup repo
