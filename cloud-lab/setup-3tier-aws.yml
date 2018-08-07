@@ -17,6 +17,12 @@
         dest: "/tmp/projkey.pem"
         flat: true
 
+    - name: fix permissions of key file
+      file:
+        path: /tmp/projkey.pem
+        mode: 0400
+      delegate_to: localhost
+
 - name: setup repo
   become: true
   gather_facts: false
