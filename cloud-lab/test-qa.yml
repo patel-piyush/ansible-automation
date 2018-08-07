@@ -1,0 +1,26 @@
+---
+- name: test 3 tier
+  hosts: jumpbox
+  gather_facts: false
+  roles:
+    - name: osp-facts
+
+- name: test web page
+  hosts: frontends
+  gather_facts: false
+  tasks:
+    - name: access local webpage 1st time
+      uri:
+        url=http://localhost
+      register: webpage
+    - fail:
+        msg: "Failed"
+      when: webpage.status != 200
+
+    - name: access local webpage 2nd time
+      uri:
+        url=http://localhost
+      register: webpage
+    - fail:
+        msg: "Failed"
+      when: webpage.status != 200
