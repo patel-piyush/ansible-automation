@@ -1,4 +1,8 @@
+.gitignore
 .DS_Store
 bad-ansible
 good-example
 *.bak
+*.retry
+copy-key.*
+osp_instances.yml
