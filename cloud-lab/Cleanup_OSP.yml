@@ -18,7 +18,7 @@
           purge: true
         vars:
           instance_name: "{{ item.name }}"
-        with_items: openstack_servers
+        with_items: "{{ openstack_servers }}"
 
       - name: Remove instances
         os_server:
@@ -27,7 +27,7 @@
           state: absent
         vars:
           instance_name: "{{ item.name }}"
-        with_items: openstack_servers
+        with_items: "{{ openstack_servers }}"
       when: openstack_servers | length > 0
 
     - name: Remove m2.small flavor
