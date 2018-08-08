@@ -5,6 +5,11 @@
   hosts: bastion
   remote_user: pipatel-redhat.com
   tasks:
+    - name: wait for environment to be running
+      wait_for:
+        port: 22
+      timeout: 600
+      
     - name: find pem file location
       find:
         path: /root/.ssh/
