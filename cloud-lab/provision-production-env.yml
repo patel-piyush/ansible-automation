@@ -29,3 +29,7 @@
 
     - name: order prod env from AWS
       script: order_prod_env.sh
+
+    - name: wait for order to be fulfilled
+      wait_for:
+        timeout: 600
