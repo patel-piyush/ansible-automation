@@ -7,8 +7,10 @@
   tasks:
     - name: wait for environment to be running
       wait_for:
+        host: bastion
         port: 22
-        timeout: 600
+        delay: 30
+        timeout: 1200
 
     - name: find pem file location
       find:
