@@ -1,0 +1,9 @@
+---
+- name: gather ec2 instance facts
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: ec2 instance facts
+      ec2_instance_facts:
+        region: us-east-1
+        
