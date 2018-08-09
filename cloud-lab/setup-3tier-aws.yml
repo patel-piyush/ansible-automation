@@ -6,6 +6,7 @@
   remote_user: pipatel-redhat.com
   tasks:
     - name: wait for environment to be running
+      become: false
       wait_for:
         host: bastion
         port: 22
