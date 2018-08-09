@@ -2,8 +2,8 @@
 - name: gather ec2 instance facts
   hosts: localhost
   connection: local
+  gather_facts: false
   tasks:
     - name: ec2 instance facts
       ec2_instance_facts:
         region: us-east-1
-        
