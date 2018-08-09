@@ -9,8 +9,11 @@
       wait_for:
         host: bastion
         port: 22
+        state: started
         delay: 30
         timeout: 1200
+        sleep: 30
+      connection: local
 
     - name: find pem file location
       find:
