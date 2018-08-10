@@ -1,9 +1,8 @@
 ---
-- name: fetch pem file from bastion
-  become: true
+- name: check for environment availability
+  hosts: localhost
   gather_facts: false
-  hosts: bastion
-  remote_user: pipatel-redhat.com
+  become: false
   tasks:
     - name: wait for environment to be running
       become: false
@@ -14,8 +13,13 @@
         delay: 30
         timeout: 1200
         sleep: 30
-      connection: local
 
+- name: fetch pem file from bastion
+  become: true
+  gather_facts: false
+  hosts: bastion
+  remote_user: pipatel-redhat.com
+  tasks:
     - name: find pem file location
       find:
         path: /root/.ssh/
