@@ -32,4 +32,4 @@
 
     - name: wait for order to be fulfilled
       wait_for:
-        timeout: 600
+        timeout: 1200
