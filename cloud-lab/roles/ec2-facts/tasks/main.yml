@@ -1,14 +1,14 @@
 ---
 # tasks file for ec2-facts
 - name: Fetch Instance Info
- ec2_instance_facts:
+  ec2_instance_facts:
   region: us-east-1
   filters:
     "tag:instance_filter": "three-tier-app-pipatel*"
- register: ec2_instance_facts
+  register: ec2_instance_facts
 
 - name: Add host
- add_host:
+  add_host:
   name: "{{ item.public_ip_address }}"
   groups:
     - "{{ item.Name }}"
