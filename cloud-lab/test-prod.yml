@@ -40,7 +40,7 @@
       register: webpage
       vars:
         frontend_ip: "{{ groups['frontends'][0] }}"
-    - fail:
+      fail:
         msg: "Failed"
       when: webpage.status != 200
 
@@ -50,4 +50,6 @@
       register: webpage
       vars:
         frontend_ip: "{{ groups['frontends'][0] }}"
+      fail:
+        msg: "Failed"
       when: webpage.status != 200
