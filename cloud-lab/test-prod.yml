@@ -2,6 +2,8 @@
 - name: test web page
   hosts: localhost
   gather_facts: false
+  roles:
+    - ec2-facts
   tasks:
     - name: access local webpage 1st time
       uri:
