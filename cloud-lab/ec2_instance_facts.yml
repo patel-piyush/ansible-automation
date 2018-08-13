@@ -1,4 +1,29 @@
 ---
+- name: fetch pem file from bastion
+  become: true
+  gather_facts: false
+  hosts: bastion
+  remote_user: pipatel-redhat.com
+  tasks:
+    - name: find pem file location
+      find:
+        path: /root/.ssh/
+        pattern: '*.pem'
+      register: result
+
+    - name: save pem file to local directory
+      fetch:
+        src: "{{ result.files[0].path }}"
+        dest: "/tmp/projkey.pem"
+        flat: true
+
+    - name: fix permissions of key file
+      become: false
+      file:
+        path: /tmp/projkey.pem
+        mode: 0400
+      delegate_to: localhost
+
 - name: gather ec2 instance facts
   hosts: localhost
   connection: local
@@ -10,4 +35,5 @@
     - name: ec2 instance facts
       ec2_instance_facts:
         filters:
-          "tag:instance_filter": "three-tier-app-pipatel*""
+          "tag:instance_filter": "three-tier-app-pipatel*"
+      ansible_ssh_private_key_file: "/tmp/projkey.pem"
