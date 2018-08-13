@@ -3,21 +3,13 @@
   hosts: localhost
   gather_facts: false
   become: false
-  tasks:
-    - name: wait for environment to be running
-      become: false
-      wait_for:
-        host: bastion
-        port: 22
-        state: started
-        delay: 30
-        timeout: 1200
-        sleep: 30
+  roles:
+    - ec2-facts
 
 - name: fetch pem file from bastion
   become: true
   gather_facts: false
-  hosts: bastion
+  hosts: bastions
   remote_user: pipatel-redhat.com
   tasks:
     - name: find pem file location
