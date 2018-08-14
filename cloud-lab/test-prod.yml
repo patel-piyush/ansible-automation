@@ -5,32 +5,7 @@
   roles:
     - ec2-facts
 
-- name: fetch pem file from bastion
-  become: true
-  gather_facts: false
-  hosts: bastions
-  remote_user: pipatel-redhat.com
-  tasks:
-    - name: find pem file location
-      find:
-        path: /root/.ssh/
-        pattern: '*.pem'
-      register: result
-
-    - name: save pem file to local directory
-      fetch:
-        src: "{{ result.files[0].path }}"
-        dest: "/tmp/projkey.pem"
-        flat: true
-
-    - name: fix permissions of key file
-      become: false
-      file:
-        path: /tmp/projkey.pem
-        mode: 0400
-      delegate_to: localhost
-
-- name: setup in memory inventory
+- name: test web page twice
   hosts: localhost
   gather_facts: false
   tasks:
