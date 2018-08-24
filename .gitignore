@@ -6,3 +6,5 @@ good-example
 *.retry
 copy-key.*
 osp_instances.yml
+order_prod_env.sh
+homework.zip
